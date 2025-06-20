@@ -1,15 +1,11 @@
 {
-	"name": "spotify",
+	"name": "light-template",
 	"main": "expo-router/entry",
-	"version": "2.3.1",
+	"version": "1.0.0",
 	"scripts": {
 		"start": "expo start",
 		"reset-project": "node ./scripts/reset-project.js",
-		"android": "expo run:android",
-		"ios": "expo run:ios",
-		"web": "expo start --web",
-		"lint": "expo lint",
-		"sync-android-version": "node scripts/sync-version.js"
+		"android": "expo run:android"
 	},
 	"dependencies": {
 		"@expo/vector-icons": "^14.1.0",
@@ -18,7 +14,9 @@
 		"expo-font": "~13.3.1",
 		"expo-haptics": "~14.1.4",
 		"expo-router": "~5.0.6",
+        "expo-system-ui": "~5.0.7",
 		"expo-status-bar": "~2.2.3",
+        "expo-navigation-bar": "~4.2.5",
 		"react": "19.0.0",
 		"react-native": "0.79.2"
 	},

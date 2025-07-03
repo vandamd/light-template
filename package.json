@@ -1,31 +1,31 @@
 {
-	"name": "light-template",
-	"main": "expo-router/entry",
-	"version": "1.0.0",
-	"scripts": {
-		"start": "expo start",
-		"reset-project": "node ./scripts/reset-project.js",
-		"android": "expo run:android"
-	},
-	"dependencies": {
-		"@expo/vector-icons": "^14.1.0",
-		"@react-native-async-storage/async-storage": "2.1.2",
-		"expo": "~53.0.9",
-		"expo-font": "~13.3.1",
-		"expo-haptics": "~14.1.4",
-		"expo-router": "~5.0.6",
-        "expo-system-ui": "~5.0.7",
-		"expo-status-bar": "~2.2.3",
-        "expo-navigation-bar": "~4.2.5",
-		"react": "19.0.0",
-		"react-native": "0.79.2"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.25.2",
-		"@types/react": "~19.0.10",
-		"eslint": "^9.25.0",
-		"eslint-config-expo": "~9.2.0",
-		"typescript": "~5.8.3"
-	},
-	"private": true
+  "name": "light-template",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "reset-project": "node ./scripts/reset-project.js",
+    "android": "expo run:android"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^14.1.0",
+    "@react-native-async-storage/async-storage": "2.1.2",
+    "expo": "53.0.16",
+    "expo-font": "~13.3.1",
+    "expo-haptics": "~14.1.4",
+    "expo-router": "~5.1.2",
+    "expo-system-ui": "~5.0.10",
+    "expo-status-bar": "~2.2.3",
+    "expo-navigation-bar": "~4.2.7",
+    "react": "19.0.0",
+    "react-native": "0.79.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@types/react": "~19.0.10",
+    "eslint": "^9.25.0",
+    "eslint-config-expo": "~9.2.0",
+    "typescript": "~5.8.3"
+  },
+  "private": true
 }

@@ -4,13 +4,13 @@ import { router } from "expo-router";
 import ContentContainer from "@/components/ContentContainer";
 
 export default function CustomiseTabsScreen() {
-	const handleCustomiseInterface = () => {
-		router.push("/settings/customise-interface" as any);
-	};
+    const handleCustomiseInterface = () => {
+        router.push("/settings/customise-interface" as any);
+    };
 
-	return (
-		<ContentContainer headerTitle="Customise">
-			<StyledButton text="Interface" onPress={handleCustomiseInterface} />
-		</ContentContainer>
-	);
+    return (
+        <ContentContainer headerTitle="Customise">
+            <StyledButton text="Interface" onPress={handleCustomiseInterface} />
+        </ContentContainer>
+    );
 }

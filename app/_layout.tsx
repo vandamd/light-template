@@ -4,44 +4,44 @@ import { HapticProvider } from "../contexts/HapticContext";
 import { useFonts } from "expo-font";
 import { setStatusBarHidden } from "expo-status-bar";
 import {
-	InvertColorsProvider,
-	useInvertColors,
+    InvertColorsProvider,
+    useInvertColors,
 } from "@/contexts/InvertColorsContext";
 import * as SystemUI from "expo-system-ui";
 import * as NavigationBar from 'expo-navigation-bar';
 
 
 function RootNavigation() {
-	useFonts({
-		"PublicSans-Regular": require("../assets/fonts/PublicSans-Regular.ttf"),
-	});
+    useFonts({
+        "PublicSans-Regular": require("../assets/fonts/PublicSans-Regular.ttf"),
+    });
 
     const { invertColors } = useInvertColors();
-	useEffect(() => {
-		setStatusBarHidden(true, "none");
+    useEffect(() => {
+        setStatusBarHidden(true, "none");
         const newColor = invertColors ? "#FFFFFF" : "#000000";
-		SystemUI.setBackgroundColorAsync(newColor);
+        SystemUI.setBackgroundColorAsync(newColor);
 
-	}, [invertColors]);
+    }, [invertColors]);
 
     NavigationBar.setVisibilityAsync("hidden");
 
-	return (
-		<Stack
-			screenOptions={{
-				headerShown: false,
-				animation: "none",
-			}}
-		></Stack>
-	);
+    return (
+        <Stack
+            screenOptions={{
+                headerShown: false,
+                animation: "none",
+            }}
+        ></Stack>
+    );
 }
 
 export default function RootLayout() {
-	return (
-		<HapticProvider>
-			<InvertColorsProvider>
-				<RootNavigation />
-			</InvertColorsProvider>
-		</HapticProvider>
-	);
+    return (
+        <HapticProvider>
+            <InvertColorsProvider>
+                <RootNavigation />
+            </InvertColorsProvider>
+        </HapticProvider>
+    );
 }

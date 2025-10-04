@@ -5,13 +5,13 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "light-template",
-    "newArchEnabled": true,
     "android": {
       "backgroundColor": "#000000",
-      "package": "com.twilightos.lighttemplate"
+      "package": "com.twilight.lighttemplate"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

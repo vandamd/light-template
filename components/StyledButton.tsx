@@ -22,11 +22,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "flex-start",
-        flexShrink: 0,
     },
     buttonText: {
         fontSize: 30,
-        flexShrink: 0,
     },
 });
-

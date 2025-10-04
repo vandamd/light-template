@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
         fontFamily: "PublicSans-Regular",
         paddingTop: 2,
         maxWidth: "75%",
+        flexShrink: 0,
     },
     button: {
         width: 32,

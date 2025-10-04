@@ -9,14 +9,22 @@ import {
 } from "@/contexts/InvertColorsContext";
 import * as SystemUI from "expo-system-ui";
 import * as NavigationBar from 'expo-navigation-bar';
+import * as SplashScreen from 'expo-splash-screen';
 
 
 function RootNavigation() {
-    useFonts({
+    const [loaded] = useFonts({
         "PublicSans-Regular": require("../assets/fonts/PublicSans-Regular.ttf"),
     });
 
     const { invertColors } = useInvertColors();
+
+    useEffect(() => {
+        if (loaded) {
+            SplashScreen.hideAsync();
+        }
+    }, [loaded]);
+
     useEffect(() => {
         setStatusBarHidden(true, "none");
         const newColor = invertColors ? "#FFFFFF" : "#000000";

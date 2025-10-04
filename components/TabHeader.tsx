@@ -47,7 +47,7 @@ export function TabHeader({
             ) : (
                 <View style={[styles.button]} />
             )}
-            <StyledText style={[styles.title]}>{headerTitle}</StyledText>
+            <StyledText style={[styles.title]} numberOfLines={1}>{headerTitle}</StyledText>
             {rightIconName ? (
                 <HapticPressable onPress={rightOnIconPress}>
                     <View style={[styles.button]}>
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
         fontFamily: "PublicSans-Regular",
         paddingTop: 2,
         maxWidth: "75%",
+        flexShrink: 0,
     },
     button: {
         width: 32,

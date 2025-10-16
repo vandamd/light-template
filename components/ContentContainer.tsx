@@ -11,6 +11,7 @@ interface ContentContainerProps {
     headerIcon?: keyof typeof MaterialIcons.glyphMap;
     headerIconPress?: () => void;
     headerIconShowLength?: number;
+    headerLeadingIcon?: ReactNode;
     style?: StyleProp<ViewStyle>;
 }
 
@@ -21,6 +22,7 @@ export default function ContentContainer({
     headerIcon,
     headerIconPress,
     headerIconShowLength = 1,
+    headerLeadingIcon,
     style,
 }: ContentContainerProps) {
     const { invertColors } = useInvertColors();
@@ -38,6 +40,7 @@ export default function ContentContainer({
                     iconName={headerIcon}
                     onIconPress={headerIconPress}
                     iconShowLength={headerIconShowLength}
+                    leadingIcon={headerLeadingIcon}
                 />
             )}
             <View style={[styles.content, style]}>{children ?? null}</View>

@@ -13,6 +13,7 @@ interface HeaderProps {
     headerTitle?: string;
     backEvent?: () => void;
     hideBackButton?: boolean;
+    leadingIcon?: React.ReactNode;
 }
 
 export function Header({
@@ -22,6 +23,7 @@ export function Header({
     headerTitle,
     backEvent,
     hideBackButton = false,
+    leadingIcon,
 }: HeaderProps) {
     const { invertColors } = useInvertColors();
     const handleBack = backEvent
@@ -53,9 +55,12 @@ export function Header({
                 <View style={[styles.button]} />
             )}
 
-            <StyledText style={[styles.title]} numberOfLines={1}>
-                {headerTitle}
-            </StyledText>
+            <View style={styles.titleContainer}>
+                {leadingIcon}
+                <StyledText style={[styles.title]} numberOfLines={1}>
+                    {headerTitle}
+                </StyledText>
+            </View>
             {iconShowLength > 0 && iconName ? (
                 <HapticPressable onPress={onIconPress}>
                     <View style={[styles.button]}>
@@ -83,11 +88,16 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         zIndex: 1,
     },
+    titleContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        maxWidth: "75%",
+    },
     title: {
         fontSize: 20,
         fontFamily: "PublicSans-Regular",
         paddingTop: 2,
-        maxWidth: "75%",
         flexShrink: 0,
     },
     button: {

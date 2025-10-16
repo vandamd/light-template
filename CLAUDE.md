@@ -9,7 +9,9 @@ This is an Expo application.
 - `bunx expo run:android` to run the app
 
 ## Rules
-- Avoid using comments unless absolutely necessary
+- Sacrifice grammar for the sake of concision
+- List any unresolved questions at the end, if any
+- Your code must be beautifully readable, comments are only used when absolutely necessary
 - Use bun instead of npm
 
 #### React useEffect Guidelines

@@ -34,6 +34,10 @@ function RootNavigation() {
 
     NavigationBar.setVisibilityAsync("hidden");
 
+    if (!loaded) {
+        return null;
+    }
+
     return (
         <Stack
             screenOptions={{

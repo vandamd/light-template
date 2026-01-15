@@ -36,6 +36,8 @@ Delete `/android` folder before first build (regenerates with your config).
 | `Navbar` | Bottom tab navigation |
 | `CustomScrollView` | FlatList with custom scroll indicator |
 | `ToggleSwitch` | On/off toggle |
+| `SelectorButton` | Shows label + value, navigates to options page |
+| `OptionsSelector` | Full-page picker for selecting from options |
 
 ## Styling with `n()`
 
@@ -52,32 +54,82 @@ const styles = StyleSheet.create({
 
 ## Tabs
 
-Configure in `app/(tabs)/_layout.tsx`:
+To add a new tab:
+
+1. Create screen file `app/(tabs)/search.tsx`
+2. Add to `TABS_CONFIG` in `app/(tabs)/_layout.tsx`:
 ```tsx
 export const TABS_CONFIG: ReadonlyArray<TabConfigItem> = [
   { name: "Home", screenName: "index", iconName: "home" },
-  { name: "Search", screenName: "search", iconName: "search" },
+  { name: "Search", screenName: "search", iconName: "search" },  // new
   { name: "Settings", screenName: "settings", iconName: "settings" },
 ] as const;
 ```
+3. Add `<Tabs.Screen>` entry:
+```tsx
+<Tabs.Screen name="index" />
+<Tabs.Screen name="search" />  // new
+<Tabs.Screen name="settings" />
+```
 
-Add new tab: create file in `app/(tabs)/`, add to config.
+Icons: Use [MaterialIcons](https://icons.expo.fyi/Index) names.
 
 ## Settings Pattern
 
 Settings use nested routes:
 ```
-app/(tabs)/settings.tsx      → Main settings page
-app/settings/customise.tsx   → Customise options
-app/settings/some-option.tsx → Individual setting page
+app/(tabs)/settings.tsx        → Main settings page
+app/settings/customise.tsx     → Customise options
+app/settings/display-mode.tsx  → Options page (example)
 ```
 
-Navigate with `router.push("/settings/customise")`.
+Use `SelectorButton` + `OptionsSelector` for option pickers:
+```tsx
+// In settings page
+<SelectorButton
+    label="Display Mode"
+    value={currentValue}
+    valueChangePage="/settings/display-mode"
+/>
+
+// In options page (app/settings/display-mode.tsx)
+<OptionsSelector
+    title="Display Mode"
+    options={[{ label: "Standard", value: "standard" }, ...]}
+    selectedValue={displayMode}
+    onSelect={(value) => setDisplayMode(value)}
+/>
+```
+
+## Confirmation Screen
+
+For destructive actions, use the confirm screen pattern:
+```tsx
+router.push({
+    pathname: "/confirm",
+    params: {
+        title: "Clear Cache",
+        message: "Are you sure?",
+        confirmText: "Clear",
+        action: "clearCache",
+        returnPath: "/(tabs)/settings",
+    },
+});
+
+// Handle confirmation in useEffect
+useEffect(() => {
+    if (params.confirmed === "true" && params.action === "clearCache") {
+        router.setParams({ confirmed: undefined, action: undefined });
+        // Do the action
+    }
+}, [params.confirmed, params.action]);
+```
 
 ## Contexts
 
 Wrapped in `app/_layout.tsx`:
 - `InvertColorsContext` - Theme toggle (black/white), persists to AsyncStorage
+- `DisplayModeContext` - Example setting context (see `app/settings/display-mode.tsx`)
 - `HapticContext` - `useHaptic()` returns function to trigger feedback
 
 Use: `const { invertColors } = useInvertColors();`

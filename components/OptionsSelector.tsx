@@ -1,7 +1,7 @@
 import React from "react";
 import { router } from "expo-router";
 import { StyledButton } from "./StyledButton";
-import { ContentContainer } from "./ContentContainer";
+import ContentContainer from "./ContentContainer";
 
 interface Option {
     label: string;
@@ -29,7 +29,7 @@ export function OptionsSelector({
     };
 
     return (
-        <ContentContainer title={title}>
+        <ContentContainer headerTitle={title}>
             {options.map((option) => (
                 <StyledButton
                     key={option.value}

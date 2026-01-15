@@ -7,12 +7,18 @@ import { n } from "@/utils/scaling";
 interface ButtonProps {
     text: string;
     onPress?: () => void;
+    underline?: boolean;
 }
 
-export function StyledButton({ text, onPress }: ButtonProps) {
+export function StyledButton({ text, onPress, underline = false }: ButtonProps) {
     return (
         <HapticPressable style={styles.button} onPress={onPress}>
-            <StyledText style={styles.buttonText}>{text}</StyledText>
+            <StyledText
+                style={[styles.buttonText, underline && styles.underline]}
+                numberOfLines={1}
+            >
+                {text}
+            </StyledText>
         </HapticPressable>
     );
 }
@@ -20,11 +26,13 @@ export function StyledButton({ text, onPress }: ButtonProps) {
 const styles = StyleSheet.create({
     button: {
         flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "flex-start",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
     },
     buttonText: {
         fontSize: n(30),
+    },
+    underline: {
+        textDecorationLine: "underline",
     },
 });

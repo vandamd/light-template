@@ -1,6 +1,7 @@
 package com.twilightos.lighttemplate
 import expo.modules.splashscreen.SplashScreenManager
 
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 

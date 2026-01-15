@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { StyledText } from "./StyledText";
 import { HapticPressable } from "./HapticPressable";
+import { n } from "@/utils/scaling";
 
 interface ButtonProps {
     text: string;
@@ -24,6 +25,6 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start",
     },
     buttonText: {
-        fontSize: 30,
+        fontSize: n(30),
     },
 });

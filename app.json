@@ -5,6 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "light-template",
+    "newArchEnabled": true,
+    "icon": "./assets/images/icon.png",
     "android": {
       "backgroundColor": "#000000",
       "package": "com.twilight.lighttemplate"

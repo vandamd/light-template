@@ -3,15 +3,14 @@ import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { Header } from "@/components/Header";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
 import { MaterialIcons } from "@expo/vector-icons";
+import { n } from "@/utils/scaling";
 
 interface ContentContainerProps {
     headerTitle?: string;
     children?: ReactNode;
     hideBackButton?: boolean;
-    headerIcon?: keyof typeof MaterialIcons.glyphMap;
-    headerIconPress?: () => void;
-    headerIconShowLength?: number;
-    headerLeadingIcon?: ReactNode;
+    rightIcon?: keyof typeof MaterialIcons.glyphMap;
+    onRightIconPress?: () => void;
     style?: StyleProp<ViewStyle>;
 }
 
@@ -19,10 +18,8 @@ export default function ContentContainer({
     headerTitle,
     children,
     hideBackButton = false,
-    headerIcon,
-    headerIconPress,
-    headerIconShowLength = 1,
-    headerLeadingIcon,
+    rightIcon,
+    onRightIconPress,
     style,
 }: ContentContainerProps) {
     const { invertColors } = useInvertColors();
@@ -37,10 +34,8 @@ export default function ContentContainer({
                 <Header
                     headerTitle={headerTitle}
                     hideBackButton={hideBackButton}
-                    iconName={headerIcon}
-                    onIconPress={headerIconPress}
-                    iconShowLength={headerIconShowLength}
-                    leadingIcon={headerLeadingIcon}
+                    rightIcon={rightIcon}
+                    onRightIconPress={onRightIconPress}
                 />
             )}
             <View style={[styles.content, style]}>{children ?? null}</View>
@@ -51,14 +46,14 @@ export default function ContentContainer({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: "100%",
     },
     content: {
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        paddingHorizontal: 37,
-        paddingTop: 14,
-        gap: 47,
+        paddingHorizontal: n(37),
+        paddingTop: n(14),
+        gap: n(47),
     },
 });
-

@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import ContentContainer from "@/components/ContentContainer";
 import { StyledButton } from "@/components/StyledButton";
 import CustomScrollView from "@/components/CustomScrollView";
@@ -18,25 +17,15 @@ const buttons = [
 
 export default function Tab() {
     return (
-        <ContentContainer style={styles.container}>
+        <ContentContainer style={{ paddingHorizontal: 20 }}>
             <CustomScrollView
                 data={buttons}
                 renderItem={({ item }) => (
                     <StyledButton text={item.text} />
                 )}
                 keyExtractor={(item) => item.id}
-                contentContainerStyle={styles.listContent}
+                contentContainerStyle={{ gap: 28 }}
             />
         </ContentContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 21,
-        paddingTop: 6,
-    },
-    listContent: {
-        gap: 28,
-    },
-});

@@ -10,6 +10,7 @@ export function StyledText({ style, ...rest }: StyledTextProps) {
     const { invertColors } = useInvertColors();
     return (
         <DefaultText
+            allowFontScaling={false}
             style={[
                 styles.text,
                 { color: invertColors ? "black" : "white" },
@@ -23,6 +24,5 @@ export function StyledText({ style, ...rest }: StyledTextProps) {
 const styles = StyleSheet.create({
     text: {
         fontFamily: "PublicSans-Regular",
-        flexShrink: 1,
     },
 });

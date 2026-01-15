@@ -13,47 +13,54 @@ import * as SplashScreen from 'expo-splash-screen';
 
 
 function RootNavigation() {
-    const [loaded] = useFonts({
-        "PublicSans-Regular": require("../assets/fonts/PublicSans-Regular.ttf"),
-    });
-
     const { invertColors } = useInvertColors();
 
     useEffect(() => {
-        if (loaded) {
-            SplashScreen.hideAsync();
-        }
-    }, [loaded]);
-
-    useEffect(() => {
-        setStatusBarHidden(true, "none");
-        const newColor = invertColors ? "#FFFFFF" : "#000000";
-        SystemUI.setBackgroundColorAsync(newColor);
-
+        SystemUI.setBackgroundColorAsync(invertColors ? "white" : "black");
+        NavigationBar.setVisibilityAsync("hidden");
     }, [invertColors]);
-
-    NavigationBar.setVisibilityAsync("hidden");
-
-    if (!loaded) {
-        return null;
-    }
 
     return (
         <Stack
             screenOptions={{
                 headerShown: false,
                 animation: "none",
+                contentStyle: {
+                    backgroundColor: invertColors ? "white" : "black",
+                },
             }}
-        ></Stack>
+        >
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="settings/customise" />
+            <Stack.Screen name="settings/customise-interface" />
+        </Stack>
     );
 }
 
 export default function RootLayout() {
+    const [fontsLoaded, fontError] = useFonts({
+        "PublicSans-Regular": require("../assets/fonts/PublicSans-Regular.ttf"),
+    });
+
+    useEffect(() => {
+        setStatusBarHidden(true, "none");
+    }, []);
+
+    useEffect(() => {
+        if (fontsLoaded || fontError) {
+            SplashScreen.hideAsync();
+        }
+    }, [fontsLoaded, fontError]);
+
+    if (!fontsLoaded && !fontError) {
+        return null;
+    }
+
     return (
-        <HapticProvider>
-            <InvertColorsProvider>
+        <InvertColorsProvider>
+            <HapticProvider>
                 <RootNavigation />
-            </InvertColorsProvider>
-        </HapticProvider>
+            </HapticProvider>
+        </InvertColorsProvider>
     );
 }

@@ -9,6 +9,7 @@ import {
     NativeScrollEvent,
 } from "react-native";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
+import { n } from "@/utils/scaling";
 
 interface CustomScrollViewProps<T = any> extends FlatListProps<T> {
     // We can add any custom props here if needed in the future
@@ -38,9 +39,7 @@ const CustomScrollView = <T,>({
         contentHeight > scrollViewHeight && scrollIndicatorHeight > 0
             ? scrollY.interpolate({
                 inputRange: [0, contentHeight - scrollViewHeight],
-                outputRange: rest.inverted
-                    ? [scrollViewHeight - scrollIndicatorHeight, 0]
-                    : [0, scrollViewHeight - scrollIndicatorHeight],
+                outputRange: [0, scrollViewHeight - scrollIndicatorHeight],
                 extrapolate: "clamp",
             })
             : 0;
@@ -85,7 +84,7 @@ const CustomScrollView = <T,>({
                 <View
                     style={[
                         styles.scrollIndicatorTrack,
-                        { transform: [{ translateX: 1 }] },
+                        { transform: [{ translateX: n(1) }] },
                         { backgroundColor: invertColors ? "black" : "white" },
                     ]}
                 >
@@ -121,15 +120,15 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     scrollIndicatorTrack: {
-        width: 1,
+        width: n(1),
         height: "100%",
         position: "absolute",
-        right: -2,
+        right: n(-2),
     },
     scrollIndicatorThumb: {
-        width: 5,
+        width: n(5),
         position: "absolute",
-        right: -2,
+        right: n(-2),
     },
 });
 

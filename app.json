@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Light Template",
-    "slug": "light-template",
+    "name": "appname",
+    "slug": "appname",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "light-template",
+    "scheme": "appname",
     "newArchEnabled": true,
     "android": {
       "backgroundColor": "#000000",
-      "package": "com.twilight.lighttemplate"
+      "package": "com.vandam.appname"
     },
     "plugins": [
       "expo-router",
@@ -23,9 +23,6 @@
       "eas": {
         "projectId": "ab8ddacc-0769-419b-8f8b-10e1bd829d49"
       }
-    },
-    "ios": {
-      "bundleIdentifier": "com.twilight.lighttemplate"
     }
   }
 }

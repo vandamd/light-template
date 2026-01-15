@@ -10,6 +10,8 @@ export default function SettingsScreen() {
     return (
         <ContentContainer>
             <StyledButton text="Customise" onPress={handleCustomise} />
+            <StyledButton text="Test Button" />
+            <StyledButton text="Another Button" />
         </ContentContainer>
     );
 }

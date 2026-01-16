@@ -16,6 +16,12 @@ bun run sync-version   # Sync version across files
 bun run generate-icon  # Generate icon from app name
 ```
 
+## GitHub Releases
+
+Trigger the workflow manually in Actions tab. It builds an APK and creates a GitHub release tagged with the version from `app.json`. Changelog is auto-generated from commits since the last release.
+
+Requires `EXPO_TOKEN` secret in repo settings.
+
 ## Detailed Docs
 
 See [CLAUDE.md](./CLAUDE.md) for complete component reference, patterns, and examples.

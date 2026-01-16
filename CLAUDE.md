@@ -23,6 +23,17 @@ Delete `/android` folder before first build (regenerates with your config).
 ## Commands
 - `bunx expo run:android` - Build and run
 - `bun start` - Start dev server
+- `bun run sync-version` - Sync version from app.json to package.json + build.gradle
+- `bun run generate-icon` - Generate app icon from first letter of app name
+
+## GitHub Actions
+
+Workflow at `.github/workflows/build.yml` builds APK and creates release:
+1. Triggered manually via `workflow_dispatch`
+2. Builds production APK using EAS
+3. Creates GitHub release with changelog
+
+Requires `EXPO_TOKEN` secret in repo settings.
 
 ## Components (Ready to Use)
 

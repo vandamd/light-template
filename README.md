@@ -10,7 +10,8 @@
 ## Commands
 
 ```bash
-bunx expo run:android  # Build and run
+bunx expo run:android  # Build and run (dev)
+eas build -p android --profile production --local  # Build APK locally
 bun run sync-version   # Sync version across files
 bun run generate-icon  # Generate icon from app name
 ```

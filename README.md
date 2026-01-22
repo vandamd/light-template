@@ -2,6 +2,9 @@
 
 <p>A minimal Expo template to create a LightOS-inspired app.</p>
 
+> [!NOTE]
+> This is very much a WIP. There's a lot of things I want to add but it'll take me a bit of time :)
+
 ## Quick Start
 
 1. Update `app.json` with your app name, slug, and package name

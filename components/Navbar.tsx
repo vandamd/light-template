@@ -16,7 +16,6 @@ interface NavbarProps {
     tabsConfig?: ReadonlyArray<TabConfigItem>;
     currentScreenName: string;
     navigation: BottomTabBarProps["navigation"];
-    showPlayingButton?: boolean;
 }
 
 export function Navbar({

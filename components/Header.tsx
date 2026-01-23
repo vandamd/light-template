@@ -10,7 +10,7 @@ import { n } from "@/utils/scaling";
 interface HeaderProps {
     headerTitle?: string;
     hideBackButton?: boolean;
-    backEvent?: () => void;
+    onBackPress?: () => void;
     leftIcon?: keyof typeof MaterialIcons.glyphMap;
     onLeftIconPress?: () => void;
     rightIcon?: keyof typeof MaterialIcons.glyphMap;
@@ -20,7 +20,7 @@ interface HeaderProps {
 export function Header({
     headerTitle,
     hideBackButton = false,
-    backEvent,
+    onBackPress,
     leftIcon,
     onLeftIconPress,
     rightIcon,
@@ -29,7 +29,7 @@ export function Header({
     const { invertColors } = useInvertColors();
     const iconColor = invertColors ? "black" : "white";
 
-    const handleBack = backEvent ?? (() => {
+    const handleBack = onBackPress ?? (() => {
         if (router.canGoBack()) {
             router.back();
         }

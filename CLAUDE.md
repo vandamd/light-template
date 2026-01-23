@@ -100,7 +100,7 @@ Use `SelectorButton` + `OptionsSelector` for option pickers:
 <SelectorButton
     label="Display Mode"
     value={currentValue}
-    valueChangePage="/settings/display-mode"
+    href="/settings/display-mode"
 />
 
 // In options page (app/settings/display-mode.tsx)

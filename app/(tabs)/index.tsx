@@ -18,7 +18,7 @@ const buttons = [
 
 export default function Tab() {
     return (
-        <ContentContainer style={{ paddingHorizontal: n(20) }}>
+        <ContentContainer headerTitle="Liked Songs" hideBackButton style={{ paddingHorizontal: n(20) }}>
             <CustomScrollView
                 data={buttons}
                 renderItem={({ item }) => (

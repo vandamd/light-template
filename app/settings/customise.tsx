@@ -23,7 +23,7 @@ export default function CustomiseScreen() {
             <SelectorButton
                 label="Display Mode"
                 value={DISPLAY_MODE_LABELS[displayMode]}
-                valueChangePage="/settings/display-mode"
+                href="/settings/display-mode"
             />
         </ContentContainer>
     );

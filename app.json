@@ -14,7 +14,8 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "./plugins/withAndroidConfigChanges"
+      "./plugins/withAndroidConfigChanges",
+      "./plugins/withAndroidTheme"
     ],
     "experiments": {
       "typedRoutes": true

@@ -3,10 +3,7 @@ import { Stack } from "expo-router";
 import { HapticProvider } from "../contexts/HapticContext";
 import { useFonts } from "expo-font";
 import { StatusBar } from "react-native";
-import {
-    InvertColorsProvider,
-    useInvertColors,
-} from "@/contexts/InvertColorsContext";
+import { InvertColorsProvider, useInvertColors, } from "@/contexts/InvertColorsContext";
 import { DisplayModeProvider } from "@/contexts/DisplayModeContext";
 import * as SystemUI from "expo-system-ui";
 import * as SplashScreen from 'expo-splash-screen';

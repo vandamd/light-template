@@ -1,7 +1,5 @@
 import ContentContainer from "@/components/ContentContainer";
-import CustomScrollView from "@/components/CustomScrollView";
 import { StyledButton } from "@/components/StyledButton";
-import { n } from "@/utils/scaling";
 
 const buttons = [
   { id: "1", text: "Test Button 1" },
@@ -19,16 +17,13 @@ const buttons = [
 export default function Tab() {
   return (
     <ContentContainer
+      contentWidth="wide"
       headerTitle="Liked Songs"
       hideBackButton
-      style={{ paddingHorizontal: n(20) }}
     >
-      <CustomScrollView
-        contentContainerStyle={{ gap: n(28) }}
-        data={buttons}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <StyledButton text={item.text} />}
-      />
+      {buttons.map((button) => (
+        <StyledButton key={button.id} text={button.text} />
+      ))}
     </ContentContainer>
   );
 }

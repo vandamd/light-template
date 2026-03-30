@@ -34,10 +34,7 @@ export default function SettingsScreen() {
 
   return (
     <ContentContainer headerTitle="Settings" hideBackButton>
-      <StyledButton
-        onPress={() => router.push("/settings/customise")}
-        text="Customise"
-      />
+      <StyledButton onPress={() => router.push("/settings/customise")} text="Customise" />
       <StyledButton onPress={handleConfirmExample} text="Example Confirm" />
     </ContentContainer>
   );

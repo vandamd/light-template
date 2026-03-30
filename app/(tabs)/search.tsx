@@ -1,9 +1,7 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { StyleSheet } from "react-native";
 import ContentContainer from "@/components/ContentContainer";
 import { SearchInput } from "@/components/SearchInput";
-import { n } from "@/utils/scaling";
 
 export default function SearchScreen() {
   const [query, setQuery] = useState("");
@@ -21,10 +19,11 @@ export default function SearchScreen() {
     <ContentContainer
       headerTitle="Search"
       hideBackButton
-      onRightIconPress={handleSearch}
-      rightIcon="search"
-      showRightIcon={query.length > 0}
-      style={styles.container}
+      rightAction={{
+        icon: "search",
+        onPress: handleSearch,
+        show: query.length > 0,
+      }}
     >
       <SearchInput
         autoFocus
@@ -36,10 +35,3 @@ export default function SearchScreen() {
     </ContentContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    gap: n(32),
-    paddingBottom: n(20),
-  },
-});

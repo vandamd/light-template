@@ -1,30 +1,44 @@
 import type { MaterialIcons } from "@expo/vector-icons";
+import { useSegments } from "expo-router";
 import type { ReactNode } from "react";
-import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
+import { Animated, StyleSheet, View } from "react-native";
 import { Header } from "@/components/Header";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
+import { useScrollIndicator } from "@/hooks/useScrollIndicator";
 import { n } from "@/utils/scaling";
+
+interface RightAction {
+  icon: keyof typeof MaterialIcons.glyphMap;
+  onPress: () => void;
+  show?: boolean;
+}
 
 interface ContentContainerProps {
   children?: ReactNode;
+  contentWidth?: "wide" | "normal";
   headerTitle?: string;
   hideBackButton?: boolean;
-  onRightIconPress?: () => void;
-  rightIcon?: keyof typeof MaterialIcons.glyphMap;
-  showRightIcon?: boolean;
-  style?: StyleProp<ViewStyle>;
+  rightAction?: RightAction;
 }
 
 export default function ContentContainer({
   headerTitle,
   children,
   hideBackButton = false,
-  rightIcon,
-  showRightIcon = true,
-  onRightIconPress,
-  style,
+  rightAction,
+  contentWidth = "normal",
 }: ContentContainerProps) {
+  const segments = useSegments();
+  const hasNavbar = segments?.[0] === "(tabs)";
   const { invertColors } = useInvertColors();
+  const {
+    handleScroll,
+    scrollIndicatorHeight,
+    scrollIndicatorPosition,
+    setContentHeight,
+    setScrollViewHeight,
+  } = useScrollIndicator();
+
   return (
     <View
       style={[
@@ -36,11 +50,70 @@ export default function ContentContainer({
         <Header
           headerTitle={headerTitle}
           hideBackButton={hideBackButton}
-          onRightIconPress={onRightIconPress}
-          rightIcon={showRightIcon ? rightIcon : undefined}
+          onRightIconPress={rightAction?.onPress}
+          rightIcon={
+            rightAction?.show === false ? undefined : rightAction?.icon
+          }
         />
       )}
-      <View style={[styles.content, style]}>{children ?? null}</View>
+      <View
+        style={[
+          styles.scrollWrapper,
+          { paddingBottom: hasNavbar ? undefined : n(20) },
+        ]}
+      >
+        <Animated.ScrollView
+          onLayout={(event) =>
+            setScrollViewHeight(event.nativeEvent.layout.height)
+          }
+          onScroll={handleScroll}
+          overScrollMode="never"
+          scrollEventThrottle={16}
+          showsVerticalScrollIndicator={false}
+        >
+          <View
+            onLayout={(event) =>
+              setContentHeight(event.nativeEvent.layout.height)
+            }
+            style={[
+              styles.content,
+              {
+                paddingHorizontal: contentWidth === "wide" ? n(20) : n(37),
+              },
+            ]}
+          >
+            {children ?? null}
+          </View>
+        </Animated.ScrollView>
+        {scrollIndicatorHeight > 0 && (
+          <View
+            style={[
+              styles.scrollIndicatorTrack,
+              {
+                right: contentWidth === "wide" ? n(18) : n(34),
+                backgroundColor: invertColors ? "black" : "white",
+              },
+            ]}
+          >
+            <Animated.View
+              style={[
+                styles.scrollIndicatorThumb,
+                {
+                  backgroundColor: invertColors ? "black" : "white",
+                },
+                {
+                  height: scrollIndicatorHeight,
+                  transform: [
+                    {
+                      translateY: scrollIndicatorPosition,
+                    },
+                  ],
+                },
+              ]}
+            />
+          </View>
+        )}
+      </View>
     </View>
   );
 }
@@ -49,13 +122,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
+    gap: n(14),
+  },
+  scrollWrapper: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    position: "relative",
   },
   content: {
-    flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
     paddingHorizontal: n(37),
-    paddingTop: n(14),
     gap: n(47),
+  },
+  scrollIndicatorTrack: {
+    width: n(1),
+    height: "100%",
+    position: "absolute",
+  },
+  scrollIndicatorThumb: {
+    width: n(5),
+    position: "absolute",
+    right: n(-2),
   },
 });

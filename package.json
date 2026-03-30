@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "android": "expo run:android",
+    "dev": "expo run:android",
     "sync-version": "node scripts/sync-version.js",
     "generate-icon": "node scripts/generate-icon.js",
     "check": "ultracite check",

@@ -6,6 +6,7 @@ import React, {
 	ReactNode,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SystemUI from "expo-system-ui";
 
 interface InvertColorsContextType {
 	invertColors: boolean;
@@ -29,6 +30,10 @@ export const InvertColorsProvider = ({ children }: { children: ReactNode }) => {
 			}
 		});
 	}, []);
+
+	useEffect(() => {
+		SystemUI.setBackgroundColorAsync(invertColors ? "white" : "black");
+	}, [invertColors]);
 
 	const setInvertColors = async (value: boolean) => {
 		setInvertColorsState(value);

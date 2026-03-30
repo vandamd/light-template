@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Stack } from "expo-router";
 import { HapticProvider } from "../contexts/HapticContext";
 import { useFonts } from "expo-font";
-import { setStatusBarHidden } from "expo-status-bar";
+import { StatusBar } from "react-native";
 import {
     InvertColorsProvider,
     useInvertColors,
@@ -44,10 +44,6 @@ export default function RootLayout() {
     });
 
     useEffect(() => {
-        setStatusBarHidden(true, "none");
-    }, []);
-
-    useEffect(() => {
         if (fontsLoaded || fontError) {
             SplashScreen.hideAsync();
         }
@@ -61,6 +57,7 @@ export default function RootLayout() {
         <InvertColorsProvider>
             <DisplayModeProvider>
                 <HapticProvider>
+                    <StatusBar hidden />
                     <RootNavigation />
                 </HapticProvider>
             </DisplayModeProvider>

@@ -9,7 +9,6 @@ import {
 } from "@/contexts/InvertColorsContext";
 import { DisplayModeProvider } from "@/contexts/DisplayModeContext";
 import * as SystemUI from "expo-system-ui";
-import * as NavigationBar from 'expo-navigation-bar';
 import * as SplashScreen from 'expo-splash-screen';
 
 
@@ -18,7 +17,6 @@ function RootNavigation() {
 
     useEffect(() => {
         SystemUI.setBackgroundColorAsync(invertColors ? "white" : "black");
-        NavigationBar.setVisibilityAsync("hidden");
     }, [invertColors]);
 
     return (

@@ -52,24 +52,17 @@ function withAndroidThemeStyles(config) {
     if (splashTheme) {
       splashTheme.item = splashTheme.item || [];
 
-      const bgItem = splashTheme.item.find(i => i.$.name === 'windowSplashScreenBackground');
-      if (bgItem) {
-        bgItem._ = '@color/splashscreen_background';
-      } else {
-        splashTheme.item.push({
-          $: { name: 'windowSplashScreenBackground' },
-          _: '@color/splashscreen_background'
-        });
-      }
+      const setOrAdd = (name, value) => {
+        const existing = splashTheme.item.find(i => i.$.name === name);
+        if (existing) {
+          existing._ = value;
+        } else {
+          splashTheme.item.push({ $: { name }, _: value });
+        }
+      };
 
-      const itemsToRemove = [
-        'windowSplashScreenAnimatedIcon',
-        'android:windowSplashScreenAnimatedIcon',
-        'android:windowSplashScreenBehavior',
-        'windowSplashScreenBehavior',
-      ];
-
-      splashTheme.item = splashTheme.item.filter(i => !itemsToRemove.includes(i.$.name));
+      setOrAdd('windowSplashScreenBackground', '@color/splashscreen_background');
+      setOrAdd('windowSplashScreenAnimatedIcon', '@drawable/transparent_splash_icon');
     }
 
     if (!config.modResults.resources.$) {
@@ -94,23 +87,17 @@ function withSplashDrawable(config) {
 </layer-list>
 `;
 
+    const transparentIcon = `<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="#00000000"/>
+    </shape>
+  </item>
+</layer-list>
+`;
+
     writeFileSync(resolve(drawablePath, 'ic_launcher_background.xml'), launcherBg);
-
-    return config;
-  }]);
-}
-
-function withRemoveSplashIcon(config) {
-  return withDangerousMod(config, ['android', async (config) => {
-    const densities = ['hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi'];
-    const resPath = resolve(config.modRequest.platformProjectRoot, 'app/src/main/res');
-
-    for (const density of densities) {
-      const splashIconPath = resolve(resPath, `drawable-${density}`, 'splashscreen_logo.png');
-      if (existsSync(splashIconPath)) {
-        unlinkSync(splashIconPath);
-      }
-    }
+    writeFileSync(resolve(drawablePath, 'transparent_splash_icon.xml'), transparentIcon);
 
     return config;
   }]);
@@ -120,6 +107,5 @@ module.exports = function withAndroidTheme(config) {
   config = withAndroidThemeColors(config);
   config = withAndroidThemeStyles(config);
   config = withSplashDrawable(config);
-  config = withRemoveSplashIcon(config);
   return config;
 };

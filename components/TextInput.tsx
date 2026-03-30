@@ -1,10 +1,10 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, TextInput, View } from "react-native";
+import { TextInput as RNTextInput, StyleSheet, View } from "react-native";
 import { HapticPressable } from "@/components/HapticPressable";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
 import { n } from "@/utils/scaling";
 
-interface SearchInputProps {
+interface TextInputProps {
   autoFocus?: boolean;
   onChangeText: (text: string) => void;
   onSubmit?: () => void;
@@ -12,13 +12,13 @@ interface SearchInputProps {
   value: string;
 }
 
-export function SearchInput({
+export function TextInput({
   value,
   onChangeText,
   placeholder,
   onSubmit,
   autoFocus = false,
-}: SearchInputProps) {
+}: TextInputProps) {
   const { invertColors } = useInvertColors();
 
   const textColor = invertColors ? "black" : "white";
@@ -30,7 +30,7 @@ export function SearchInput({
 
   return (
     <View style={[styles.container, { borderBottomColor: borderColor }]}>
-      <TextInput
+      <RNTextInput
         allowFontScaling={false}
         autoCapitalize="none"
         autoCorrect={false}

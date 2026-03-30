@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { useState } from "react";
 import ContentContainer from "@/components/ContentContainer";
-import { SearchInput } from "@/components/SearchInput";
+import { TextInput } from "@/components/TextInput";
 
 export default function SearchScreen() {
   const [query, setQuery] = useState("");
@@ -25,7 +25,7 @@ export default function SearchScreen() {
         show: query.length > 0,
       }}
     >
-      <SearchInput
+      <TextInput
         autoFocus
         onChangeText={setQuery}
         onSubmit={handleSearch}

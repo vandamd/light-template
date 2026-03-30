@@ -17,7 +17,6 @@ const buttons = [
 export default function Tab() {
   return (
     <ContentContainer
-      contentWidth="wide"
       headerTitle="Liked Songs"
       hideBackButton
     >

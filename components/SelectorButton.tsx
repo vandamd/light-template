@@ -24,9 +24,6 @@ export function SelectorButton({ label, value, href }: SelectorButtonProps) {
 const styles = StyleSheet.create({
   button: {
     flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    gap: 0,
   },
   label: {
     fontSize: n(20),

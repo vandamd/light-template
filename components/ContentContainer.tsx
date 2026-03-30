@@ -15,6 +15,7 @@ interface RightAction {
 
 interface ContentContainerProps {
   children?: ReactNode;
+  contentGap?: number;
   contentWidth?: "wide" | "normal";
   headerTitle?: string;
   hideBackButton?: boolean;
@@ -27,6 +28,7 @@ export default function ContentContainer({
   hideBackButton = false,
   rightAction,
   contentWidth = "normal",
+  contentGap = 47,
 }: ContentContainerProps) {
   const segments = useSegments();
   const hasNavbar = segments?.[0] === "(tabs)";
@@ -50,10 +52,7 @@ export default function ContentContainer({
         <Header
           headerTitle={headerTitle}
           hideBackButton={hideBackButton}
-          onRightIconPress={rightAction?.onPress}
-          rightIcon={
-            rightAction?.show === false ? undefined : rightAction?.icon
-          }
+          rightAction={rightAction}
         />
       )}
       <View
@@ -78,6 +77,7 @@ export default function ContentContainer({
             style={[
               styles.content,
               {
+                gap: n(contentGap),
                 paddingHorizontal: contentWidth === "wide" ? n(20) : n(37),
               },
             ]}

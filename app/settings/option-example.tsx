@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { OptionsSelector } from "@/components/OptionsSelector";
 import {
   type OptionExample,
@@ -15,7 +16,10 @@ export default function OptionExampleScreen() {
 
   return (
     <OptionsSelector
-      onSelect={(value) => setOptionExample(value as OptionExample)}
+      onSelect={(value) => {
+        setOptionExample(value as OptionExample);
+        router.back();
+      }}
       options={OPTIONS}
       selectedValue={optionExample}
       title="Option Example"

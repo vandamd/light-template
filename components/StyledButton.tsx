@@ -5,20 +5,16 @@ import { StyledText } from "./StyledText";
 
 interface ButtonProps {
   onPress?: () => void;
+  selected?: boolean;
   text: string;
-  underline?: boolean;
 }
 
-export function StyledButton({
-  text,
-  onPress,
-  underline = false,
-}: ButtonProps) {
+export function StyledButton({ text, onPress, selected = false }: ButtonProps) {
   return (
     <HapticPressable onPress={onPress} style={styles.button}>
       <StyledText
         numberOfLines={1}
-        style={[styles.buttonText, underline && styles.underline]}
+        style={[styles.buttonText, selected && styles.selected]}
       >
         {text}
       </StyledText>
@@ -35,7 +31,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: n(30),
   },
-  underline: {
+  selected: {
     textDecorationLine: "underline",
   },
 });

@@ -147,6 +147,6 @@ Use: `const { invertColors } = useInvertColors();`
 
 ## Rules
 - Use `n()` for all numeric style values
-- Use `bun` instead of npm
+- Use bun instead of npm
 - Minimize `useEffect` - see [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 - Readable code > comments

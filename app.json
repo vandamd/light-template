@@ -5,7 +5,6 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "appname",
-    "newArchEnabled": true,
     "icon": "./assets/images/icon.png",
     "android": {
       "backgroundColor": "#000000",

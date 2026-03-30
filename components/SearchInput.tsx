@@ -1,9 +1,7 @@
-import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { HapticPressable } from "@/components/HapticPressable";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
-import { useHaptic } from "@/contexts/HapticContext";
 import { n } from "@/utils/scaling";
 
 interface SearchInputProps {
@@ -22,13 +20,11 @@ export function SearchInput({
     autoFocus = false,
 }: SearchInputProps) {
     const { invertColors } = useInvertColors();
-    const { triggerHaptic } = useHaptic();
 
     const textColor = invertColors ? "black" : "white";
     const borderColor = invertColors ? "black" : "white";
 
     const handleClear = () => {
-        triggerHaptic();
         onChangeText("");
     };
 

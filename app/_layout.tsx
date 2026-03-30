@@ -1,8 +1,7 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "react-native";
-import { HapticProvider } from "@/contexts/HapticContext";
 import { InvertColorsProvider, useInvertColors } from "@/contexts/InvertColorsContext";
-import { DisplayModeProvider } from "@/contexts/DisplayModeContext";
+import { OptionExampleProvider } from "@/contexts/OptionExampleContext";
 
 function RootLayout() {
     const { invertColors } = useInvertColors();
@@ -23,12 +22,10 @@ function RootLayout() {
 export default function App() {
     return (
         <InvertColorsProvider>
-            <DisplayModeProvider>
-                <HapticProvider>
-                    <StatusBar hidden />
-                    <RootLayout />
-                </HapticProvider>
-            </DisplayModeProvider>
+            <OptionExampleProvider>
+                <StatusBar hidden />
+                <RootLayout />
+            </OptionExampleProvider>
         </InvertColorsProvider>
     );
 }

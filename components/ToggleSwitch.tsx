@@ -8,7 +8,6 @@ import { n } from "@/utils/scaling";
 interface ToggleSwitchGraphicProps {
     value: boolean;
     disabled?: boolean;
-    color?: string;
 }
 
 const CIRCLE_DIAMETER = n(9.8);
@@ -66,14 +65,12 @@ interface ToggleSwitchProps {
     label: string;
     value: boolean;
     onValueChange: (value: boolean) => void;
-    color?: string;
 }
 
 export function ToggleSwitch({
     label,
     value,
     onValueChange,
-    color = "white",
 }: ToggleSwitchProps) {
     return (
         <HapticPressable
@@ -83,7 +80,7 @@ export function ToggleSwitch({
             style={[styles.container]}
         >
             <View style={styles.switchTouchable}>
-                <ToggleSwitchGraphic value={value} color={color} />
+                <ToggleSwitchGraphic value={value} />
             </View>
             <View style={styles.textTouchable}>
                 <StyledText style={[styles.label]}>{label}</StyledText>

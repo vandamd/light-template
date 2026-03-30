@@ -1,21 +1,24 @@
 import { OptionsSelector } from "@/components/OptionsSelector";
-import { useOptionExample, OptionExample } from "@/contexts/OptionExampleContext";
+import {
+  type OptionExample,
+  useOptionExample,
+} from "@/contexts/OptionExampleContext";
 
 const OPTIONS = [
-    { label: "Option 1", value: "option-1" },
-    { label: "Option 2", value: "option-2" },
-    { label: "Option 3", value: "option-3" },
+  { label: "Option 1", value: "option-1" },
+  { label: "Option 2", value: "option-2" },
+  { label: "Option 3", value: "option-3" },
 ];
 
 export default function OptionExampleScreen() {
-    const { optionExample, setOptionExample } = useOptionExample();
+  const { optionExample, setOptionExample } = useOptionExample();
 
-    return (
-        <OptionsSelector
-            title="Option Example"
-            options={OPTIONS}
-            selectedValue={optionExample}
-            onSelect={(value) => setOptionExample(value as OptionExample)}
-        />
-    );
+  return (
+    <OptionsSelector
+      onSelect={(value) => setOptionExample(value as OptionExample)}
+      options={OPTIONS}
+      selectedValue={optionExample}
+      title="Option Example"
+    />
+  );
 }

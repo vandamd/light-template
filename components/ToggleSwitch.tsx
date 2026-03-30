@@ -1,13 +1,12 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { StyledText } from "./StyledText";
-import { HapticPressable } from "./HapticPressable";
+import { StyleSheet, View } from "react-native";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
 import { n } from "@/utils/scaling";
+import { HapticPressable } from "./HapticPressable";
+import { StyledText } from "./StyledText";
 
 interface ToggleSwitchGraphicProps {
-    value: boolean;
-    disabled?: boolean;
+  disabled?: boolean;
+  value: boolean;
 }
 
 const CIRCLE_DIAMETER = n(9.8);
@@ -16,94 +15,94 @@ const LINE_WIDTH = n(14.5);
 const LINE_HEIGHT = n(2.22);
 
 const ToggleSwitchGraphic = ({ value }: ToggleSwitchGraphicProps) => {
-    const { invertColors } = useInvertColors();
-    const switchColor = invertColors ? "black" : "white";
+  const { invertColors } = useInvertColors();
+  const switchColor = invertColors ? "black" : "white";
 
-    const graphicStyles = StyleSheet.create({
-        container: {
-            flexDirection: "row",
-            alignItems: "center",
-        },
-        circle: {
-            width: CIRCLE_DIAMETER,
-            height: CIRCLE_DIAMETER,
-            borderRadius: CIRCLE_DIAMETER / 2,
-            backgroundColor: switchColor,
-        },
-        hollowCircle: {
-            width: CIRCLE_DIAMETER,
-            height: CIRCLE_DIAMETER,
-            borderRadius: CIRCLE_DIAMETER / 2,
-            borderWidth: CIRCLE_BORDER,
-            borderColor: switchColor,
-        },
-        line: {
-            width: LINE_WIDTH,
-            height: LINE_HEIGHT,
-            backgroundColor: switchColor,
-        },
-    });
+  const graphicStyles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    circle: {
+      width: CIRCLE_DIAMETER,
+      height: CIRCLE_DIAMETER,
+      borderRadius: CIRCLE_DIAMETER / 2,
+      backgroundColor: switchColor,
+    },
+    hollowCircle: {
+      width: CIRCLE_DIAMETER,
+      height: CIRCLE_DIAMETER,
+      borderRadius: CIRCLE_DIAMETER / 2,
+      borderWidth: CIRCLE_BORDER,
+      borderColor: switchColor,
+    },
+    line: {
+      width: LINE_WIDTH,
+      height: LINE_HEIGHT,
+      backgroundColor: switchColor,
+    },
+  });
 
-    return (
-        <View style={graphicStyles.container}>
-            {!value ? (
-                <>
-                    <View style={graphicStyles.hollowCircle} />
-                    <View style={graphicStyles.line} />
-                </>
-            ) : (
-                <>
-                    <View style={graphicStyles.line} />
-                    <View style={graphicStyles.circle} />
-                </>
-            )}
-        </View>
-    );
+  return (
+    <View style={graphicStyles.container}>
+      {value ? (
+        <>
+          <View style={graphicStyles.line} />
+          <View style={graphicStyles.circle} />
+        </>
+      ) : (
+        <>
+          <View style={graphicStyles.hollowCircle} />
+          <View style={graphicStyles.line} />
+        </>
+      )}
+    </View>
+  );
 };
 
 interface ToggleSwitchProps {
-    label: string;
-    value: boolean;
-    onValueChange: (value: boolean) => void;
+  label: string;
+  onValueChange: (value: boolean) => void;
+  value: boolean;
 }
 
 export function ToggleSwitch({
-    label,
-    value,
-    onValueChange,
+  label,
+  value,
+  onValueChange,
 }: ToggleSwitchProps) {
-    return (
-        <HapticPressable
-            onPress={() => {
-                onValueChange(!value);
-            }}
-            style={[styles.container]}
-        >
-            <View style={styles.switchTouchable}>
-                <ToggleSwitchGraphic value={value} />
-            </View>
-            <View style={styles.textTouchable}>
-                <StyledText style={[styles.label]}>{label}</StyledText>
-            </View>
-        </HapticPressable>
-    );
+  return (
+    <HapticPressable
+      onPress={() => {
+        onValueChange(!value);
+      }}
+      style={[styles.container]}
+    >
+      <View style={styles.switchTouchable}>
+        <ToggleSwitchGraphic value={value} />
+      </View>
+      <View style={styles.textTouchable}>
+        <StyledText style={[styles.label]}>{label}</StyledText>
+      </View>
+    </HapticPressable>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        alignItems: "center",
-        paddingTop: n(9),
-    },
-    switchTouchable: {
-        marginTop: n(13),
-        marginRight: n(20),
-        marginLeft: n(8.5),
-    },
-    textTouchable: {
-        flex: 1,
-    },
-    label: {
-        fontSize: n(30),
-    },
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: n(9),
+  },
+  switchTouchable: {
+    marginTop: n(13),
+    marginRight: n(20),
+    marginLeft: n(8.5),
+  },
+  textTouchable: {
+    flex: 1,
+  },
+  label: {
+    fontSize: n(30),
+  },
 });

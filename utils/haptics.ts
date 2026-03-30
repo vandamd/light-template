@@ -1,4 +1,3 @@
-import * as Haptics from "expo-haptics";
+import { ImpactFeedbackStyle, impactAsync } from "expo-haptics";
 
-export const triggerHaptic = () =>
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+export const triggerHaptic = () => impactAsync(ImpactFeedbackStyle.Light);

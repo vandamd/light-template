@@ -5,7 +5,9 @@
   "scripts": {
     "android": "expo run:android",
     "sync-version": "node scripts/sync-version.js",
-    "generate-icon": "node scripts/generate-icon.js"
+    "generate-icon": "node scripts/generate-icon.js",
+    "check": "ultracite check",
+    "fix": "ultracite fix"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -24,9 +26,11 @@
     "react-native-screens": "^4.23.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.4.9",
     "@types/react": "~19.2.0",
     "canvas": "^3.2.1",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "ultracite": "^7.4.0"
   },
   "private": true
 }

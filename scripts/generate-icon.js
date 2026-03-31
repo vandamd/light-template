@@ -22,8 +22,12 @@ ctx.fillRect(0, 0, size, size);
 ctx.fillStyle = "white";
 ctx.font = "85.4px PublicSans";
 ctx.textAlign = "center";
-ctx.textBaseline = "middle";
-ctx.fillText(firstLetter, size / 2 - 1, size / 2 + 0.5);
+ctx.textBaseline = "alphabetic";
+const metrics = ctx.measureText(firstLetter);
+const y =
+  (size + metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent) /
+  2;
+ctx.fillText(firstLetter, size / 2, y);
 
 const outputPath = path.join(import.meta.dirname, "../assets/images/icon.png");
 const dir = path.dirname(outputPath);

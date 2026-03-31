@@ -1,8 +1,9 @@
 import type { MaterialIcons } from "@expo/vector-icons";
-import { useSegments } from "expo-router";
+import { router, useSegments } from "expo-router";
 import type { ReactNode } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import { Header } from "@/components/Header";
+import { SwipeBackContainer } from "@/components/SwipeBackContainer";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
 import { useScrollIndicator } from "@/hooks/useScrollIndicator";
 import { n } from "@/utils/scaling";
@@ -41,80 +42,90 @@ export default function ContentContainer({
     setScrollViewHeight,
   } = useScrollIndicator();
 
+  const canSwipeBack = Boolean(headerTitle) && !hideBackButton;
+
+  const handleBack = () => {
+    if (router.canGoBack()) {
+      router.back();
+    }
+  };
+
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: invertColors ? "white" : "black" },
-      ]}
-    >
-      {headerTitle && (
-        <Header
-          headerTitle={headerTitle}
-          hideBackButton={hideBackButton}
-          rightAction={rightAction}
-        />
-      )}
+    <SwipeBackContainer enabled={canSwipeBack} onSwipeBack={handleBack}>
       <View
         style={[
-          styles.scrollWrapper,
-          { paddingBottom: hasNavbar ? undefined : n(20) },
+          styles.container,
+          { backgroundColor: invertColors ? "white" : "black" },
         ]}
       >
-        <Animated.ScrollView
-          onLayout={(event) =>
-            setScrollViewHeight(event.nativeEvent.layout.height)
-          }
-          onScroll={handleScroll}
-          overScrollMode="never"
-          scrollEventThrottle={16}
-          showsVerticalScrollIndicator={false}
+        {headerTitle && (
+          <Header
+            headerTitle={headerTitle}
+            hideBackButton={hideBackButton}
+            rightAction={rightAction}
+          />
+        )}
+        <View
+          style={[
+            styles.scrollWrapper,
+            { paddingBottom: hasNavbar ? undefined : n(20) },
+          ]}
         >
-          <View
+          <Animated.ScrollView
             onLayout={(event) =>
-              setContentHeight(event.nativeEvent.layout.height)
+              setScrollViewHeight(event.nativeEvent.layout.height)
             }
-            style={[
-              styles.content,
-              {
-                gap: n(contentGap),
-                paddingHorizontal: contentWidth === "wide" ? n(20) : n(37),
-              },
-            ]}
+            onScroll={handleScroll}
+            overScrollMode="never"
+            scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}
           >
-            {children ?? null}
-          </View>
-        </Animated.ScrollView>
-        {scrollIndicatorHeight > 0 && (
-          <View
-            style={[
-              styles.scrollIndicatorTrack,
-              {
-                right: contentWidth === "wide" ? n(18) : n(34),
-                backgroundColor: invertColors ? "black" : "white",
-              },
-            ]}
-          >
-            <Animated.View
+            <View
+              onLayout={(event) =>
+                setContentHeight(event.nativeEvent.layout.height)
+              }
               style={[
-                styles.scrollIndicatorThumb,
+                styles.content,
                 {
-                  backgroundColor: invertColors ? "black" : "white",
-                },
-                {
-                  height: scrollIndicatorHeight,
-                  transform: [
-                    {
-                      translateY: scrollIndicatorPosition,
-                    },
-                  ],
+                  gap: n(contentGap),
+                  paddingHorizontal: contentWidth === "wide" ? n(20) : n(37),
                 },
               ]}
-            />
-          </View>
-        )}
+            >
+              {children ?? null}
+            </View>
+          </Animated.ScrollView>
+          {scrollIndicatorHeight > 0 && (
+            <View
+              style={[
+                styles.scrollIndicatorTrack,
+                {
+                  right: contentWidth === "wide" ? n(18) : n(34),
+                  backgroundColor: invertColors ? "black" : "white",
+                },
+              ]}
+            >
+              <Animated.View
+                style={[
+                  styles.scrollIndicatorThumb,
+                  {
+                    backgroundColor: invertColors ? "black" : "white",
+                  },
+                  {
+                    height: scrollIndicatorHeight,
+                    transform: [
+                      {
+                        translateY: scrollIndicatorPosition,
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+    </SwipeBackContainer>
   );
 }
 

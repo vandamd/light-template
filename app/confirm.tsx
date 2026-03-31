@@ -1,13 +1,19 @@
-import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import {
+  type Href,
+  router,
+  useLocalSearchParams,
+  useRouter,
+} from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { HapticPressable } from "@/components/HapticPressable";
 import { Header } from "@/components/Header";
 import { StyledText } from "@/components/StyledText";
+import { SwipeBackContainer } from "@/components/SwipeBackContainer";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
 import { n } from "@/utils/scaling";
 
 export default function ConfirmScreen() {
-  const router = useRouter();
+  const routerInstance = useRouter();
   const { invertColors } = useInvertColors();
   const params = useLocalSearchParams<{
     title: string;
@@ -19,29 +25,39 @@ export default function ConfirmScreen() {
 
   const handleConfirm = () => {
     const path = params.returnPath || "/(tabs)/settings";
-    router.push(`${path}?confirmed=true&action=${params.action}` as Href);
+    routerInstance.push(
+      `${path}?confirmed=true&action=${params.action}` as Href
+    );
+  };
+
+  const handleBack = () => {
+    if (router.canGoBack()) {
+      router.back();
+    }
   };
 
   const textColor = invertColors ? "black" : "white";
 
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: invertColors ? "white" : "black" },
-      ]}
-    >
-      <Header headerTitle={params.title || "Confirm"} />
-      <View style={styles.content}>
-        <StyledText style={styles.messageText}>{params.message}</StyledText>
-        <View style={styles.spacer} />
-        <HapticPressable onPress={handleConfirm} style={styles.button}>
-          <StyledText style={[styles.buttonText, { color: textColor }]}>
-            {params.confirmText || "Confirm"}
-          </StyledText>
-        </HapticPressable>
+    <SwipeBackContainer enabled onSwipeBack={handleBack}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: invertColors ? "white" : "black" },
+        ]}
+      >
+        <Header headerTitle={params.title || "Confirm"} />
+        <View style={styles.content}>
+          <StyledText style={styles.messageText}>{params.message}</StyledText>
+          <View style={styles.spacer} />
+          <HapticPressable onPress={handleConfirm} style={styles.button}>
+            <StyledText style={[styles.buttonText, { color: textColor }]}>
+              {params.confirmText || "Confirm"}
+            </StyledText>
+          </HapticPressable>
+        </View>
       </View>
-    </View>
+    </SwipeBackContainer>
   );
 }
 

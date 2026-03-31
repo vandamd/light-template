@@ -2,7 +2,7 @@ import ContentContainer from "@/components/ContentContainer";
 import { StyledButton } from "@/components/StyledButton";
 
 const buttons = [
-  { id: "1", text: "Test Button 1" },
+  { id: "1", text: "Test Button long one because I want to test a long button 1" },
   { id: "2", text: "Test Button 2" },
   { id: "3", text: "Test Button 3" },
   { id: "4", text: "Test Button 4" },

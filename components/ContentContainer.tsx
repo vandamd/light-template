@@ -88,7 +88,8 @@ export default function ContentContainer({
                 styles.content,
                 {
                   gap: n(contentGap),
-                  paddingHorizontal: contentWidth === "wide" ? n(20) : n(37),
+                  paddingLeft: contentWidth === "wide" ? n(20) : n(37),
+                  paddingRight: contentWidth === "wide" ? n(32) : n(46),
                 },
               ]}
             >

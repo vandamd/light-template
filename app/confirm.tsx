@@ -1,9 +1,4 @@
-import {
-  type Href,
-  router,
-  useLocalSearchParams,
-  useRouter,
-} from "expo-router";
+import { type Href, router, useLocalSearchParams } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { HapticPressable } from "@/components/HapticPressable";
 import { Header } from "@/components/Header";
@@ -13,7 +8,6 @@ import { useInvertColors } from "@/contexts/InvertColorsContext";
 import { n } from "@/utils/scaling";
 
 export default function ConfirmScreen() {
-  const routerInstance = useRouter();
   const { invertColors } = useInvertColors();
   const params = useLocalSearchParams<{
     title: string;
@@ -25,9 +19,7 @@ export default function ConfirmScreen() {
 
   const handleConfirm = () => {
     const path = params.returnPath || "/(tabs)/settings";
-    routerInstance.push(
-      `${path}?confirmed=true&action=${params.action}` as Href
-    );
+    router.navigate(`${path}?confirmed=true&action=${params.action}` as Href);
   };
 
   const handleBack = () => {

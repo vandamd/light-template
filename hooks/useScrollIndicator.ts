@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import { Animated } from "react-native";
 import { n } from "@/utils/scaling";
@@ -19,6 +19,7 @@ export function useScrollIndicator(): UseScrollIndicatorReturn {
   const [contentHeight, setContentHeight] = useState<number>(0);
   const [scrollViewHeight, setScrollViewHeight] = useState<number>(0);
   const scrollY = useRef(new Animated.Value(0)).current;
+  const fallbackScrollValue = useRef(new Animated.Value(0)).current;
 
   const scrollIndicatorHeight =
     scrollViewHeight > 0 &&
@@ -34,11 +35,14 @@ export function useScrollIndicator(): UseScrollIndicatorReturn {
           outputRange: [0, scrollViewHeight - scrollIndicatorHeight],
           extrapolate: "clamp",
         })
-      : new Animated.Value(0);
+      : fallbackScrollValue;
 
-  const handleScroll = Animated.event(
-    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-    { useNativeDriver: false }
+  const handleScroll = useMemo(
+    () =>
+      Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+        useNativeDriver: false,
+      }),
+    [scrollY]
   );
 
   return {

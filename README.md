@@ -27,4 +27,4 @@ Requires `EXPO_TOKEN` secret in repo settings.
 
 ## Detailed Docs
 
-See [CLAUDE.md](./CLAUDE.md) for complete component reference, patterns, and examples.
+See [AGENTS.md](./AGENTS.md) for complete component reference, patterns, and examples.

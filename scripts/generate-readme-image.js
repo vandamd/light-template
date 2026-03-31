@@ -2,6 +2,12 @@ const { createCanvas, loadImage, registerFont } = require("canvas");
 const fs = require("node:fs");
 const path = require("node:path");
 
+const fontPath = path.join(
+  import.meta.dirname,
+  "../assets/fonts/PublicSans-Regular.ttf"
+);
+registerFont(fontPath, { family: "PublicSans" });
+
 const width = 2572;
 const height = 1048;
 const canvas = createCanvas(width, height);
@@ -9,12 +15,6 @@ const ctx = canvas.getContext("2d");
 
 ctx.fillStyle = "#393939";
 ctx.fillRect(0, 0, width, height);
-
-const fontPath = path.join(
-  import.meta.dirname,
-  "../assets/fonts/PublicSans-Regular.ttf"
-);
-registerFont(fontPath, { family: "PublicSans" });
 
 const appConfig = JSON.parse(fs.readFileSync("app.json", "utf8"));
 const appName = appConfig.expo.name;

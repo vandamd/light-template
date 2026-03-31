@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "expo run:android",
-    "sync-version": "node scripts/sync-version.js",
-    "generate-icon": "node scripts/generate-icon.js",
+    "sync-version": "bun scripts/sync-version.js",
+    "generate-icon": "bun scripts/generate-icon.js",
+    "generate-readme-image": "bun scripts/generate-readme-image.js",
     "check": "ultracite check",
     "fix": "ultracite fix"
   },

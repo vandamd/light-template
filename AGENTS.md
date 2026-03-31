@@ -11,6 +11,7 @@ Expo template with pre-built components and patterns.
 - `bun dev` - Build and run
 - `bun run sync-version` - Sync version from app.json to package.json + build.gradle
 - `bun run generate-icon` - Generate app icon from first letter of app name
+- `bun run generate-readme-image` - Generate README example image (requires A.png, B.png, C.png, D.png in assets/images/)
 - `bun run check` - Lint
 - `bun run fix` - Automatically fix linting issues
 

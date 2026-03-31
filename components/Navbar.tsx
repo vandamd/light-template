@@ -1,67 +1,68 @@
-import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
-import { HapticPressable } from "./HapticPressable";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { StyleSheet, View } from "react-native";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
 import { n } from "@/utils/scaling";
+import { HapticPressable } from "./HapticPressable";
 
 export interface TabConfigItem {
-    name: string;
-    screenName: string;
-    iconName: keyof typeof MaterialIcons.glyphMap;
+  iconName: keyof typeof MaterialIcons.glyphMap;
+  name: string;
+  screenName: string;
 }
 
 interface NavbarProps {
-    tabsConfig?: ReadonlyArray<TabConfigItem>;
-    currentScreenName: string;
-    navigation: BottomTabBarProps["navigation"];
+  currentScreenName: string;
+  navigation: BottomTabBarProps["navigation"];
+  tabsConfig?: readonly TabConfigItem[];
 }
 
-export function Navbar({
-    tabsConfig,
-    currentScreenName,
-    navigation,
-}: NavbarProps) {
-    const { invertColors } = useInvertColors();
+const getTabColor = (isActive: boolean, inverted: boolean) => {
+  if (isActive) {
+    return inverted ? "black" : "white";
+  }
+  return inverted ? "#C1C1C1" : "#6E6E6E";
+};
 
-    return (
-        <View
-            style={[
-                styles.navbar,
-                { backgroundColor: invertColors ? "white" : "black" },
-            ]}
+export function Navbar({
+  tabsConfig,
+  currentScreenName,
+  navigation,
+}: NavbarProps) {
+  const { invertColors } = useInvertColors();
+
+  return (
+    <View
+      style={[
+        styles.navbar,
+        { backgroundColor: invertColors ? "white" : "black" },
+      ]}
+    >
+      {tabsConfig?.map((tab) => (
+        <HapticPressable
+          key={tab.screenName}
+          onPress={() => navigation.navigate(tab.screenName)}
         >
-            {tabsConfig?.map((tab) => (
-                <HapticPressable
-                    key={tab.screenName}
-                    onPress={() => navigation.navigate(tab.screenName)}
-                >
-                    <MaterialIcons
-                        name={tab.iconName}
-                        size={n(48)}
-                        color={
-                            tab.screenName === currentScreenName
-                                ? invertColors
-                                    ? "black"
-                                    : "white"
-                                : invertColors
-                                    ? "#C1C1C1"
-                                    : "#6E6E6E"
-                        }
-                    />
-                </HapticPressable>
-            ))}
-        </View>
-    );
+          <MaterialIcons
+            color={getTabColor(
+              tab.screenName === currentScreenName,
+              invertColors
+            )}
+            name={tab.iconName}
+            size={n(48)}
+          />
+        </HapticPressable>
+      ))}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    navbar: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingVertical: n(11),
-        paddingHorizontal: n(20),
-    },
+  navbar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: n(11),
+    paddingHorizontal: n(20),
+  },
 });

@@ -1,9 +1,21 @@
 # App Template
-
 Expo template with pre-built components and patterns.
 
-## Setup
+## Rules
+- Use `n()` for all numeric style values
+- Use bun instead of npm
+- Minimise `useEffect` - see [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+- Readable code > comments
 
+## Commands
+- `bun dev` - Build and run
+- `bun run sync-version` - Sync version from app.json to package.json + build.gradle
+- `bun run generate-icon` - Generate app icon from first letter of app name
+- `bun run generate-readme-image` - Generate README example image (requires A.png, B.png, C.png, D.png in assets/images/)
+- `bun run check` - Lint
+- `bun run fix` - Automatically fix linting issues
+
+## Setup
 Update `app.json`:
 ```json
 {
@@ -17,17 +29,9 @@ Update `app.json`:
   }
 }
 ```
-
 Delete `/android` folder before first build (regenerates with your config).
 
-## Commands
-- `bunx expo run:android` - Build and run
-- `bun start` - Start dev server
-- `bun run sync-version` - Sync version from app.json to package.json + build.gradle
-- `bun run generate-icon` - Generate app icon from first letter of app name
-
 ## GitHub Actions
-
 Workflow at `.github/workflows/build.yml` builds APK and creates release:
 1. Triggered manually via `workflow_dispatch`
 2. Builds production APK using EAS
@@ -35,24 +39,8 @@ Workflow at `.github/workflows/build.yml` builds APK and creates release:
 
 Requires `EXPO_TOKEN` secret in repo settings.
 
-## Components (Ready to Use)
-
-| Component | Purpose |
-|-----------|---------|
-| `ContentContainer` | Page wrapper with header, handles background color |
-| `StyledText` | Theme-aware text with custom font |
-| `StyledButton` | Button with haptic feedback |
-| `HapticPressable` | Pressable with haptic feedback |
-| `Header` | Top bar with title, back button, icons |
-| `Navbar` | Bottom tab navigation |
-| `CustomScrollView` | FlatList with custom scroll indicator |
-| `ToggleSwitch` | On/off toggle |
-| `SelectorButton` | Shows label + value, navigates to options page |
-| `OptionsSelector` | Full-page picker for selecting from options |
-
 ## Styling with `n()`
-
-**Always use `n()` for sizes** - normalizes across screen densities:
+**Always use `n()` for sizes** - normalises across screen densities:
 ```tsx
 import { n } from "@/utils/scaling";
 
@@ -63,8 +51,29 @@ const styles = StyleSheet.create({
 });
 ```
 
-## Tabs
+## ContentContainer
+Wrap screen content in `ContentContainer` - handles scrolling, theming, padding, and scroll indicators automatically. No styling needed on children.
+```tsx
+import ContentContainer from "@/components/ContentContainer";
 
+export default function MyScreen() {
+  return (
+    <ContentContainer headerTitle="My Screen">
+      <MyComponent />
+      <AnotherComponent />
+    </ContentContainer>
+  );
+}
+```
+
+Props:
+- `headerTitle` - Shows header with title (omit to hide)
+- `hideBackButton` - Hide back arrow (default: false)
+- `rightAction` - Header icon button: `{ icon: "share", onPress: () => {} }`
+- `contentWidth` - `"normal"` (default) or `"wide"` for more horizontal space
+- `contentGap` - Gap between children (default: 47)
+
+## Tabs
 To add a new tab:
 
 1. Create screen file `app/(tabs)/search.tsx`
@@ -86,34 +95,32 @@ export const TABS_CONFIG: ReadonlyArray<TabConfigItem> = [
 Icons: Use [MaterialIcons](https://icons.expo.fyi/Index) names.
 
 ## Settings Pattern
-
 Settings use nested routes:
 ```
-app/(tabs)/settings.tsx        → Main settings page
-app/settings/customise.tsx     → Customise options
-app/settings/display-mode.tsx  → Options page (example)
+app/(tabs)/settings.tsx         → Main settings page
+app/settings/customise.tsx      → Customise options
+app/settings/option-example.tsx → Options page (example)
 ```
 
 Use `SelectorButton` + `OptionsSelector` for option pickers:
 ```tsx
 // In settings page
 <SelectorButton
-    label="Display Mode"
+    label="Option Example"
     value={currentValue}
-    href="/settings/display-mode"
+    href="/settings/option-example"
 />
 
-// In options page (app/settings/display-mode.tsx)
+// In options page (app/settings/option-example.tsx)
 <OptionsSelector
-    title="Display Mode"
+    title="Option Example"
     options={[{ label: "Standard", value: "standard" }, ...]}
-    selectedValue={displayMode}
-    onSelect={(value) => setDisplayMode(value)}
+    selectedValue={optionValue}
+    onSelect={(value) => setOptionValue(value)}
 />
 ```
 
 ## Confirmation Screen
-
 For destructive actions, use the confirm screen pattern:
 ```tsx
 router.push({
@@ -137,16 +144,11 @@ useEffect(() => {
 ```
 
 ## Contexts
-
 Wrapped in `app/_layout.tsx`:
 - `InvertColorsContext` - Theme toggle (black/white), persists to AsyncStorage
-- `DisplayModeContext` - Example setting context (see `app/settings/display-mode.tsx`)
-- `HapticContext` - `useHaptic()` returns function to trigger feedback
+- `OptionExampleContext` - Example setting context (see `app/settings/option-example.tsx`)
 
 Use: `const { invertColors } = useInvertColors();`
 
-## Rules
-- Use `n()` for all numeric style values
-- Use `bun` instead of npm
-- Minimize `useEffect` - see [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
-- Readable code > comments
+## Haptic Feedback
+Use `HapticPressable` instead of `Pressable` for automatic haptic feedback on press.

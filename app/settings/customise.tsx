@@ -1,30 +1,29 @@
-import React from "react";
-import { StyledButton } from "@/components/StyledButton";
-import { SelectorButton } from "@/components/SelectorButton";
-import { router } from "expo-router";
+import { type Href, router } from "expo-router";
 import ContentContainer from "@/components/ContentContainer";
-import { useDisplayMode } from "@/contexts/DisplayModeContext";
+import { SelectorButton } from "@/components/SelectorButton";
+import { StyledButton } from "@/components/StyledButton";
+import { useOptionExample } from "@/contexts/OptionExampleContext";
 
-const DISPLAY_MODE_LABELS: Record<string, string> = {
-    standard: "Standard",
-    compact: "Compact",
-    comfortable: "Comfortable",
+const OPTION_LABELS: Record<string, string> = {
+  "option-1": "Option 1",
+  "option-2": "Option 2",
+  "option-3": "Option 3",
 };
 
 export default function CustomiseScreen() {
-    const { displayMode } = useDisplayMode();
+  const { optionExample } = useOptionExample();
 
-    return (
-        <ContentContainer headerTitle="Customise">
-            <StyledButton
-                text="Interface"
-                onPress={() => router.push("/settings/customise-interface" as any)}
-            />
-            <SelectorButton
-                label="Display Mode"
-                value={DISPLAY_MODE_LABELS[displayMode]}
-                href="/settings/display-mode"
-            />
-        </ContentContainer>
-    );
+  return (
+    <ContentContainer headerTitle="Customise">
+      <StyledButton
+        onPress={() => router.push("/settings/customise-interface" as Href)}
+        text="Interface"
+      />
+      <SelectorButton
+        href="/settings/option-example"
+        label="Option Example"
+        value={OPTION_LABELS[optionExample]}
+      />
+    </ContentContainer>
+  );
 }

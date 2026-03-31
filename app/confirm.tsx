@@ -1,7 +1,7 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
-import ContentContainer from "@/components/ContentContainer";
 import { HapticPressable } from "@/components/HapticPressable";
+import { Header } from "@/components/Header";
 import { StyledText } from "@/components/StyledText";
 import { useInvertColors } from "@/contexts/InvertColorsContext";
 import { n } from "@/utils/scaling";
@@ -25,36 +25,44 @@ export default function ConfirmScreen() {
   const textColor = invertColors ? "black" : "white";
 
   return (
-    <ContentContainer headerTitle={params.title || "Confirm"}>
-      <StyledText style={styles.messageText}>{params.message}</StyledText>
-
-      <View style={styles.buttonContainer}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: invertColors ? "white" : "black" },
+      ]}
+    >
+      <Header headerTitle={params.title || "Confirm"} />
+      <View style={styles.content}>
+        <StyledText style={styles.messageText}>{params.message}</StyledText>
+        <View style={styles.spacer} />
         <HapticPressable onPress={handleConfirm} style={styles.button}>
           <StyledText style={[styles.buttonText, { color: textColor }]}>
             {params.confirmText || "Confirm"}
           </StyledText>
         </HapticPressable>
       </View>
-    </ContentContainer>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: n(37),
+    paddingTop: n(20),
+    paddingBottom: n(20),
+  },
   messageText: {
     fontSize: n(18),
-    marginTop: n(10),
   },
-  buttonContainer: {
-    width: "100%",
+  spacer: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
   },
   button: {
-    paddingVertical: n(15),
-    paddingHorizontal: n(30),
     alignItems: "center",
-    justifyContent: "flex-end",
     minWidth: n(200),
   },
   buttonText: {

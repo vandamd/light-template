@@ -7,7 +7,11 @@ export function usePersistedState<T>(key: string, defaultValue: T) {
   useEffect(() => {
     AsyncStorage.getItem(key).then((stored) => {
       if (stored !== null) {
-        setValue(JSON.parse(stored));
+        try {
+          setValue(JSON.parse(stored));
+        } catch {
+          AsyncStorage.removeItem(key);
+        }
       }
     });
   }, [key]);
